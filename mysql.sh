@@ -21,7 +21,7 @@ VALIDATE(){
     fi    
 }
 
-CHECKROOT(){
+CHECK_ROOT(){
     if [ $USERID -ne 0 ]
     then
           echo "ERROR :: You must have sudo access to execute this script"
