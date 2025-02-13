@@ -14,7 +14,7 @@ LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "Installing $2....$R Failure $N"
+        echo -e "InsTalling $2....$R Failure $N"
         exit 1
     else 
         echo -e "Installing $2.....$G Success $N"
@@ -34,7 +34,7 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 CHECK_ROOT
 
 dnf install mysql-server -y &>>$LOG_FILE_NAME
-VALIDATE $? "Installing mysql Server"
+VALIDATE $? "InStalling mysql Server"
 
 systemctl enable mysqld &>>$LOG_FILE_NAME
 VALIDATE $? "Enabling mysql Server"
