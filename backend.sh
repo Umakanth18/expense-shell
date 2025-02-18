@@ -48,7 +48,7 @@ then
     useradd expense &>>$LOG_FILE_NAME
     VALIDATE $? "Adding expense user"
 else
-  echo -e "user already exists...$Y SKIPPING $N"    
+  echo -e "expense user already exists...$Y SKIPPING $N"    
 fi
 
 mkdir -p /app &>>$LOG_FILE_NAME
