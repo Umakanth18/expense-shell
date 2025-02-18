@@ -42,7 +42,7 @@ VALIDATE $? "Enabling NodeJS 20"
 dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing NodeJS"
 
-useradd expensee &>>$LOG_FILE_NAME
+useradd expense &>>$LOG_FILE_NAME
 VALIDATE $? "Adding expense user"
 
 mkdir /app &>>$LOG_FILE_NAME
@@ -59,7 +59,7 @@ VALIDATE $? "unzip backend"
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing dependencies"
 
-cp /c/devops/daws-82s/repos/expense-shell/backend.service /etc/systemd/system/backend.service
+cp expense-shell/backend.service /etc/systemd/system/backend.service
 
 #Prepare mysql schema
 
