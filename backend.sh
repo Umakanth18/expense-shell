@@ -33,19 +33,19 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Disabling existing default NodeJS"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &>>$LOG_FILE_NAME
 VALIDATE $? "Enabling NodeJS 20"
 
-dnf install nodejs -y
+dnf install nodejs -y &>>$LOG_FILE_NAME
 VALIDATE $? "Installing NodeJS"
 
-useradd expense
+useradd expense &>>$LOG_FILE_NAME
 VALIDATE $? "Adding expense user"
 
-mkdir /app
+mkdir /app 
 VALIDATE $? "Creating app directory"
 
 curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
@@ -53,13 +53,28 @@ VALIDATE $? "Downloding backend"
 
 cd /app
 
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip &>>$LOG_FILE_NAME
 VALIDATE $? "unzip backedn"
 
-npm install
+npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing dependencies"
 
 cp /c/devops/daws-82s/repos/expense-shell/backedn.service /etc/systemd/system/backend.service
 
 #Prepare mysql schema
+
+dnf install mysql -y &>>$LOG_FILE_NAME
+VALIDATE $? "Installing mysql Client"
+
+mysql -h mysql.daws82ss.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE_NAME
+VALIDATE $? "Settingup the transcations schema and tables"
+
+systemctl daemon-reload &>>$LOG_FILE_NAME
+VALIDATE $? "Daemon reload"
+
+systemctl enable backend &>>$LOG_FILE_NAME
+VALIDATE $? "Enabling backend"
+
+systemctl start backend &>>$LOG_FILE_NAME
+VALIDATE $? "Starting backend"
 
