@@ -54,12 +54,12 @@ VALIDATE $? "Downloding backend"
 cd /app
 
 unzip /tmp/backend.zip &>>$LOG_FILE_NAME
-VALIDATE $? "unzip backedn"
+VALIDATE $? "unzip backend"
 
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing dependencies"
 
-cp /expense-shell/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 #Prepare mysql schema
 
