@@ -45,10 +45,10 @@ VALIDATE $? "Installing NodeJS"
 useradd expense &>>$LOG_FILE_NAME
 VALIDATE $? "Adding expense user"
 
-mkdir /app 
+mkdir /app &>>$LOG_FILE_NAME
 VALIDATE $? "Creating app directory"
 
-curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE_NAME
 VALIDATE $? "Downloding backend"
 
 cd /app
@@ -59,7 +59,7 @@ VALIDATE $? "unzip backedn"
 npm install &>>$LOG_FILE_NAME
 VALIDATE $? "Installing dependencies"
 
-cp /c/devops/daws-82s/repos/expense-shell/backedn.service /etc/systemd/system/backend.service
+cp /expense-shell/backend.service /etc/systemd/system/backend.service
 
 #Prepare mysql schema
 
